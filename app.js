@@ -2,6 +2,7 @@ const express = require("express");
 const { users } = require("./model/index");
 const app = express();
 //const app = require("express")()
+const bcrypt = require("bcrypt")
 
 require("./model/index")
 
@@ -33,7 +34,7 @@ app.post("/register",async (req,res)=>{
   //model ko index ma lekheko users
    await users.create({
     username: username,
-    password: password,
+    password : bcrypt.hashSync(password,10),
     email: email
   })
   res.send("register successfully")
