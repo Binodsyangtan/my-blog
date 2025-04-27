@@ -3,8 +3,7 @@ const { users } = require("./model/index");
 const app = express();
 //const app = require("express")()
 const bcrypt = require("bcrypt");
-const e = require("express");
-const { where } = require("sequelize");
+const jwt = require("jsonwebtoken")
 
 require("./model/index");
 
@@ -45,7 +44,7 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-//   const { email, password } = req.body;
+  const { email, password } = req.body;
   if (!email || !password) {
     return res.send("please provide  email and password");
   }
@@ -58,6 +57,13 @@ app.post("/login", async (req, res) => {
     //next password check gareko bcrypt le method deko huxa
     const isMatched = bcrypt.compareSync(password, data.password);
     if (isMatched) {
+      const token = jwt.sign({id : data.id},'iwantairbuds',{
+        expiresIn: "30d"
+      })
+      // console.log("token", token);
+      res.cookie('jwttoken',token)
+
+      
       res.send("Login succcess");
     } else {
       res.send("Invalid email/password");
@@ -67,13 +73,11 @@ app.post("/login", async (req, res) => {
   }
 });
 
-
-
 //nodejs lai vaneko public/css use garna de vanera
 //if yo code nalekhe didaina nodejs le access
 app.use(express.static("public/css/"));
 
-const port = 3000
+const port = 3000;
 app.listen(port, () => {
   console.log(`project has started at port ${port}`);
 });
