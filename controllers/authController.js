@@ -24,6 +24,7 @@ exports.handleRegister = async (req, res) => {
     email: email,
   });
   res.send("register successfully");
+  
 };
 
 exports.renderLoginPage = (req, res) => {

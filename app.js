@@ -10,9 +10,12 @@ const {
   hanldeLogin,
 } = require("./controllers/authCOntroller");
 
+
+
 require("./model/index");
 
 const authRoute = require("./routes/authRoute");
+const questionRoute = require("./routes/questionRoute")
 //ejs set gareko use ganalai ejs
 app.set("view engine", "ejs");
 
@@ -24,6 +27,7 @@ app.use(express.json()); //external ,like react,vuejs
 //locahost:3000 ,locahost:3000/ + register ----> localhost:3000/regiter
 //yo code use gare sabko authRoute ko sab use hunxa
 app.use("/", authRoute);
+app.use("/",questionRoute)
 
 //nodejs lai vaneko public/css use garna de vanera
 //if yo code nalekhe didaina nodejs le access
