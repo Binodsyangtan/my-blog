@@ -49,9 +49,9 @@ exports.hanldeLogin = async (req, res) => {
         expiresIn: "30d",
       });
       // console.log("token", token);
-      res.cookie("jwttoken", token);
+      res.cookie("jwtoken", token);
 
-      res.send("Login succcess");
+      res.redirect("/");
     } else {
       res.send("Invalid email/password");
     }
