@@ -1,9 +1,21 @@
-const { users } = require("../model/index");
+const { users, questions } = require("../model/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-exports.renderHomePage = (req, res) => {
-  res.render("home.ejs");
+exports.renderHomePage = async (req, res) => {
+  const data = await questions.findAll(
+    {
+      include : [{
+        model: users,
+        attributes : ["username","email"] //k k need xa tyo matra pathaune
+      }]
+    }
+
+  ); //findAll return array
+  console.log(data);
+  
+
+  res.render("home.ejs", { data });
 };
 
 exports.renderRegisterPage = (req, res) => {
@@ -24,7 +36,6 @@ exports.handleRegister = async (req, res) => {
     email: email,
   });
   res.send("register successfully");
-  
 };
 
 exports.renderLoginPage = (req, res) => {

@@ -8,7 +8,7 @@ const {
   handleRegister,
   renderLoginPage,
   hanldeLogin,
-} = require("./controllers/authCOntroller");
+} = require("./controllers/authController");
 
 const cookieParser = require("cookie-parser");
 
